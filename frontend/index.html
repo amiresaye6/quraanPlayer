@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Listening</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/jsmediatags/dist/jsmediatags.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quran Listening</h1>
+            <img src="img.png" alt="Quran" class="logo">
+        </header>
+        <main>
+            <input type="text" id="fileName" placeholder="Enter audio file name (e.g., 001.mp3)">
+            <button id="playButton">Play</button>
+            <div id="error" class="error"></div>
+            <audio id="audioPlayer" controls style="display: none;">
+                <source id="audioSource" src="" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div id="metadata" class="metadata" style="display: none;"></div>
+        </main>
+        <footer>
+            <p>&copy; 2024 Quran Listening</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

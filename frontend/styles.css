@@ -1,0 +1,83 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    background-color: #00796b;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.logo {
+    max-width: 100px;
+    margin-top: 10px;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #00796b;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #00796b;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #005f56;
+}
+
+.error {
+    color: red;
+}
+
+.metadata {
+    margin-top: 20px;
+    background-color: #e0f7fa;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+/* Dark Mode */
+body.dark {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+header.dark {
+    background-color: #005f56;
+}
+
+button.dark {
+    background-color: #005f56;
+}
+
+.metadata.dark {
+    background-color: #444;
+}
