@@ -1,1 +1,1 @@
-# quraanPlayer
+# quranPlayer
