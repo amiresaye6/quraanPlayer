@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Audio Data</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Quran Audio Surahs</h1>
+        <div id="suras" class="cards-container"></div>
+    </div>
+    <script>
+        const suras = document.getElementById("suras");
+        const BOT_TOKEN = '7721759445:AAHYzo_uVGIIgx1_sDCsDAtN1f-EZSsCnSQ'; // Replace with your actual bot token
+
+        const getFileUrl = async (fileId) => {
+            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId}`);
+            const data = await response.json();
+            return `https://api.telegram.org/file/bot${BOT_TOKEN}/${data.result.file_path}`;
+        };
+
+        const fetchAudioFiles = async () => {
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates`);
+                const data = await response.json();
+
+                const audioMessages = data.result.filter(el => el.message && el.message.audio);
+                //console.log(Array.form(data.result.filter(el => el.message && el.message.audio)))
+
+                console.log(audioMessages)
+                let inn = 1
+                for (const el of audioMessages) {
+                    console.log(el, inn += 1)
+                    const audio = el.message.audio;
+                    const title = audio.title || audio.file_name;
+                    const performer = audio.performer || 'Unknown Performer';
+                    const audioUrl = await getFileUrl(audio.file_id);
+
+                    // Create a card for each Surah
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h3>${title}</h3>
+                        <p>Performed by: ${performer}</p>
+                        <a href="surah.html?title=${encodeURIComponent(title)}&performer=${encodeURIComponent(performer)}&audioUrl=${encodeURIComponent(audioUrl)}" class="button">View Details</a>
+                    `;
+                    suras.appendChild(card);
+                }
+            } catch (error) {
+                console.error('Error fetching audio files:', error);
+            }
+        };
+
+        fetchAudioFiles();
+    </script>
+</body>
+</html>

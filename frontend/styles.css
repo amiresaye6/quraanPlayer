@@ -26,16 +26,25 @@ header {
     margin-top: 10px;
 }
 
-input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #00796b;
+.start-button {
+    padding: 10px 15px;
+    margin-top: 20px;
+    border: none;
+    background-color: #00796b;
+    color: #fff;
     border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
 }
 
-button {
-    padding: 10px 20px;
+.start-button:hover {
+    background-color: #005f56;
+}
+
+.surah-button {
+    padding: 10px 15px;
+    margin: 10px;
     border: none;
     background-color: #00796b;
     color: #fff;
@@ -44,7 +53,7 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+.surah-button:hover {
     background-color: #005f56;
 }
 
@@ -62,22 +71,4 @@ button:hover {
 footer {
     margin-top: 20px;
     font-size: 0.9em;
-}
-
-/* Dark Mode */
-body.dark {
-    background-color: #333;
-    color: #f0f0f0;
-}
-
-header.dark {
-    background-color: #005f56;
-}
-
-button.dark {
-    background-color: #005f56;
-}
-
-.metadata.dark {
-    background-color: #444;
 }

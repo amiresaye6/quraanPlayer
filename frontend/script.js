@@ -1,5 +1,28 @@
-document.getElementById('playButton').addEventListener('click', async () => {
-    const fileName = document.getElementById('fileName').value;
+const surahs = [
+    { name: 'Al-Fatiha', file: '001.mp3' },
+    { name: 'Al-Baqarah', file: '002.mp3' },
+    { name: 'Al-Imran', file: '003.mp3' },
+    { name: 'An-Nisa', file: '004.mp3' },
+    { name: 'Al-Maidah', file: '005.mp3' },
+    // Add more Surahs as needed
+];
+
+const buttonContainer = document.getElementById('buttonContainer');
+
+if (buttonContainer) {
+    surahs.forEach(surah => {
+        const button = document.createElement('button');
+        button.textContent = surah.name;
+        button.value = surah.file;
+        button.classList.add('surah-button');
+        button.addEventListener('click', () => {
+            playAudio(surah.file);
+        });
+        buttonContainer.appendChild(button);
+    });
+}
+
+const playAudio = async (fileName) => {
     const errorElement = document.getElementById('error');
     const audioPlayer = document.getElementById('audioPlayer');
     const audioSource = document.getElementById('audioSource');
@@ -59,18 +82,4 @@ document.getElementById('playButton').addEventListener('click', async () => {
         audioPlayer.style.display = 'none';
         metadataElement.style.display = 'none';
     }
-});
-
-// Optional: Theme toggle
-const toggleTheme = () => {
-    document.body.classList.toggle('dark');
-    const button = document.getElementById('themeToggle');
-    button.textContent = document.body.classList.contains('dark') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
 };
-
-// Create a theme toggle button (if needed)
-const themeToggleButton = document.createElement('button');
-themeToggleButton.id = 'themeToggle';
-themeToggleButton.textContent = 'Switch to Dark Mode';
-themeToggleButton.addEventListener('click', toggleTheme);
-document.body.insertBefore(themeToggleButton, document.body.firstChild);

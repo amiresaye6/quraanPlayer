@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Quran Audio Data</title>
+</head>
+<body>
+    <div>
+        <ul id="suras"></ul>
+    </div>
+    <script>
+        const suras = document.getElementById("suras");
+
+        const BOT_TOKEN = '7721759445:AAHYzo_uVGIIgx1_sDCsDAtN1f-EZSsCnSQ'; // Replace with your actual bot token
+        const fetchAudioFiles = async () => {
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates`);
+                const data = await response.json();
+
+                console.log('Full API Response:', data);  // Log the full response for inspection
+
+                // Filter for messages that contain audio data
+                const audioMessages = data.result.filter(el => el.message && el.message.audio);
+
+                if (audioMessages.length === 0) {
+                    console.error('No audio messages found.');
+                    return;
+                }
+
+                // Loop through the audio data and display all the details including audio player
+                audioMessages.forEach(el => {
+                    const audio = el.message.audio;
+                    const title = audio.title || audio.file_name;  // Use file_name as fallback if title is missing
+                    const performer = audio.performer || 'Unknown Performer';
+                    const duration = audio.duration || 'N/A';  // Duration in seconds
+                    const fileName = audio.file_name || 'Unknown File Name';
+                    const mimeType = audio.mime_type || 'Unknown MIME Type';
+                    const fileSize = audio.file_size ? `${(audio.file_size / 1048576).toFixed(2)} MB` : 'Unknown File Size';  // File size in MB
+
+                    // Audio file URL
+                    const fileId = audio.file_id;
+                    const audioUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${fileId}`;
+
+                    // Append the detailed data in a structured format including the audio player
+                    suras.innerHTML += `
+                        <li>
+                            <h3>${title} - ${performer}</h3>
+                            <p><strong>Duration:</strong> ${duration} seconds</p>
+                            <p><strong>File Name:</strong> ${fileName}</p>
+                            <p><strong>MIME Type:</strong> ${mimeType}</p>
+                            <p><strong>File Size:</strong> ${fileSize}</p>
+                            <audio controls>
+                                <source src="${audioUrl}" type="${mimeType}">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </li>
+                        <hr>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error fetching audio files:', error);
+            }
+        };
+
+        // Fetch audio files on page load
+        fetchAudioFiles();
+    </script>
+</body>
+</html>
